@@ -1,0 +1,6 @@
+<!-- <app-login  (loginStuObj)="objReceive($event)" (dataFromLogin)="receivedDataFromLogin($event)" (dataToShowCompany)="receivedDataFromLoginToSHowCompany($event)" *ngIf="showLOginPage" [new_u]="new_user" [new_p]="new_user_password">
+   
+</app-login> -->
+<app-sign-up *ngIf="!signUpOrNot" [chechUsersToLogin1]="loginDetails" (SignUpDone)="ReceivedDataFromSignUp($event)" (SignUpDone1)="ReceivedNewUserName($event)" (SignUpDone2)="ReceivedNewUserPassword($event)"></app-sign-up>
+
+<!-- <app-company *ngIf="showCompanyOrNot" ></app-company>  -->
