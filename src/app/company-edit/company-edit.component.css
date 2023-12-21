@@ -1,14 +1,6 @@
-.top-div{
+.top-div1{
     display: flex;
     justify-content: center;
     align-items: center;
     /* height: 100vh; */
-}
-
-#label{
-    padding-top: 15px;
-}
-
-#select{
-   margin: 7px;
 }

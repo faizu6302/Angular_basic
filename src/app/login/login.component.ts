@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 import { login } from "../login.interface";
+import { AppService } from "../app.service";
 
 @Component({
   selector: "app-login",
@@ -10,83 +11,64 @@ import { login } from "../login.interface";
 
 
 export class LoginComponent implements OnInit {
-  userName = "";
-  password = "";
-  signUpDetails: boolean = true;
-  givePermission = false;  
-  // signupEntry : boolean = false;
-  // companyEntry : boolean = false;
+  userNameLoginPage = "";
+  passwordLoginPage = "";
+  givePermissionForSignUp: boolean = true;
+  givePermissionForCompany = false;  
+  
 
-  @Output() dataFromLogin = new EventEmitter<boolean>();
-  @Output() dataToShowCompany = new EventEmitter<boolean>()
-  @Output() loginStuObj = new EventEmitter<login []>()
-
-  @Input() new_u: string = ""
-  @Input() new_p: string = ""
+  @Output() signUpPermissionFromLogin = new EventEmitter<boolean>();
+  @Output() permissionToShowCompanyFromLogin = new EventEmitter<boolean>()
+  // @Output() loginStuObj = new EventEmitter<login []>()
 
 
-  loginDetails: login[] = [
-    {
-      uName: "faizan",
-      password: "faizu123",
-      type : "superAdmin"
-    },
-    {
-      uName: "amod",
-      password: "amod123",
-      type : "admin"
-    },
-    {
-      uName: "prateek",
-      password: "pratek123",
-      type : "superAdmin"
-      
-    },
-    {
-      uName: "kruteek",
-      password: "kruteek123",
-      type : "admin"
-    },
-    {
-      uName: "shoaib",
-      password: "shoaib123",
-      type : "admin"
-    },
-  ];
+  //getting new signup user details from signup page
+  @Input() newUserNameAfterSignUp: string = ""
+  @Input() newUserPasswordAfterSignUp: string = ""
 
-  constructor() { }
+
+  
+  constructor(private loginDetailDataService: AppService) { }
+
+
+  //LoginPage UserName and Password inputs
 
   clickedUName(Event) {
-    this.userName = Event.target.value;
-    // console.log(this.userName)
-    // Event.target.value=''
+    this.userNameLoginPage = Event.target.value;
+    
   }
   clickedPassword(Event) {
-    this.password = Event.target.value;
-    // console.log(this.password)
-    // console.log(this.userName)
-    // Event.target.value =''
+    this.passwordLoginPage = Event.target.value;
+   
   }
+
+
+  //checking for correct credentials , when clicked login button
 
   checkEntry() {
 
+    //checking for null details and trying to login
 
-    // 
-    if (this.userName === '' || this.password == '') {
+    if (this.userNameLoginPage === '' || this.passwordLoginPage === '') {
       alert("details are mandatory")
     }
+    //go for further checking
+
     else {
 
-
-      if (this.new_u !== '' && this.new_p !== '' && this.userName === this.new_u && this.password === this.new_p) {
+      //checking if new user after signup trying to login
+      if (this.newUserNameAfterSignUp !== '' && this.newUserPasswordAfterSignUp !== '' && this.userNameLoginPage === this.newUserNameAfterSignUp && this.passwordLoginPage === this.newUserPasswordAfterSignUp) {
         
-        this.givePermission = true;
+        this.givePermissionForCompany = true;
       }
       else {
-        for (let i of this.loginDetails) {
-          if (i.uName === this.userName && i.password === this.password) {
 
-            this.givePermission = true;
+        //checking the current user details from predefined object
+
+        for (let i of this.loginDetailDataService.predefinedLoginDetails) {
+          if (i.uName === this.userNameLoginPage && i.password === this.passwordLoginPage) {
+
+            this.givePermissionForCompany = true;
 
             break;
           }
@@ -95,22 +77,33 @@ export class LoginComponent implements OnInit {
 
     }
 
+    //after checking all credentials , if all success , the user can login
+    if (this.givePermissionForCompany ) {
 
-    if (this.givePermission ) {
-      this.dataToShowCompany.emit(true)
+      //login successful and company details shown
+      this.permissionToShowCompanyFromLogin.emit(true)
     }
-    else if(this.userName !=='' && this.password!== '') {
+
+    //atlast if it didnt pass any case i.e , there is no user
+    else if(this.userNameLoginPage !=='' && this.passwordLoginPage!== '') {
       alert("You Dont have account , Create One!!");
-      this.userName = "";
-      this.password = "";
+      this.userNameLoginPage = "";
+      this.passwordLoginPage = "";
     }
 
 
   }
 
+
+  //if user dont have account , directly pressing signup button , 
+
   signUp() {
-    this.dataFromLogin.emit(this.signUpDetails)
-    this.loginStuObj.emit(this.loginDetails)
+
+    //permission for signUp is true
+
+    this.signUpPermissionFromLogin.emit(this.givePermissionForSignUp)
+
+    // this.loginStuObj.emit(this.loginDetailDataService.predefinedLoginDetails)
   }
 
 

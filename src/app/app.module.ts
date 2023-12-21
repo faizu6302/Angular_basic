@@ -7,6 +7,8 @@ import { CompanyComponent } from './company/company.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { CompanyEditComponent } from './company-edit/company-edit.component';
+import { PermissionDirective } from './permission.directive';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     LoginComponent,
     CompanyComponent,
     SignUpComponent,
+    CompanyEditComponent,
+    PermissionDirective,
     
   ],
   imports: [

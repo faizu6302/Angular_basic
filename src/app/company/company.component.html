@@ -1,36 +1,32 @@
+<div  class="top-div">
 
+  <table class="table-content">
 
+    <thead>
+      <tr>
+        <th class="text-dark" scope="col" *appPermission="permissionToShow">Action</th>
+        <th class="text-dark" scope="col">CompanyName</th>
+        <th class="text-dark" scope="col">RegistrationNumber</th>
+        <th class="text-dark" scope="col">Address</th>
+        <th class="text-dark" scope="col">Phone</th>
+        <th class="text-dark" scope="col">Founder</th>
+      </tr>
+    </thead>
+    <tbody>
 
-  <h1  class="text-center text-dark ">company details</h1>
-
-  <h1></h1>
-  
-
-  
-
-
-<table border="2px">
-  <thead>
-    <tr>
-      <th class="text-dark" scope="col">CompanyName</th>
-      <th class="text-dark" scope="col">RegistrationNumber</th>
-      <th class="text-dark" scope="col">Address</th>
-      <th class="text-dark" scope="col">Phone</th>
-      <th class="text-dark" scope="col">Email</th>
-      <th class="text-dark" scope="col">Founder</th>
-    </tr>
-  </thead>
-  <tbody >
-    
-      <tr border="1px" *ngFor="let item of companyDetails" [ngStyle]="{'background-color':item.RegistrationNumber % 2 === 0 ? 'green' : 'red' }"  >
-        <td border="1px">{{ item.CompanyName }}</td>
-        <td >{{ item.RegistrationNumber }}</td>
+      <tr *ngFor="let item of companyInfo ,let i = index"
+        [ngStyle]="{'background-color':item.RegistrationNumber % 2 === 0 ? 'palegoldenrod' : 'cornsilk' }">
+        <td *appPermission="permissionToShow"><button style="background-color: 	lightgreen;" (click)="onClickEditButton(item)">Edit</button></td>
+        <td>{{ item.CompanyName }} </td>
+        <td>{{ item.RegistrationNumber }}</td>
         <td>{{ item.Address }}</td>
         <td>{{ item.Phone }}</td>
-        <td>{{ item.Email }}</td>
         <td>{{ item.Founder }}</td>
       </tr>
-    
-    
-  </tbody>
-</table>
+
+
+    </tbody>
+  </table>
+</div>
+
+<app-company-edit *ngIf="service2.showValue" [objFromCompany]="dataToBeChange"></app-company-edit>
