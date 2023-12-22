@@ -8,24 +8,26 @@ import { AppService } from '../app.service';
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.css']
 })
-export class CompanyEditComponent implements OnChanges {
+export class CompanyEditComponent implements OnChanges,OnInit {
 
-  reCompanyName :string ="";
-  reRegistrationNumber : number ;
-  reAddress : string = "";
-  rePhone : number ;
-  reEmail : string;
-  reFounder : string = ""
-  value = true
+  reCompanyName: string = "";
+  reRegistrationNumber: number | undefined ;
+  reAddress: string = "";
+  rePhone: number | undefined ;
+  reEmail: string = "";
+  reFounder: string = ""
 
-  @Input() objFromCompany : any;
-
+  dontHideSaveAndDonot = false;
   
 
+  objFromCompany: any;
 
-  constructor( private service_edit : AppService) {}
-
-  ngOnChanges() {
+  constructor(private serviceCompanyEdit: AppService) {
+}
+  
+  ngOnInit(): void {
+    this.objFromCompany = this.serviceCompanyEdit.objToEditCompany;
+    // console.log(this.objFromCompany)
     this.reCompanyName = this.objFromCompany.CompanyName;
     this.reRegistrationNumber = this.objFromCompany.RegistrationNumber;
     this.reAddress = this.objFromCompany.Address;
@@ -34,24 +36,33 @@ export class CompanyEditComponent implements OnChanges {
     this.reFounder = this.objFromCompany.Founder;
   }
 
-  onSave(){
+  ngOnChanges() {
     
-    this.objFromCompany.CompanyName=this.reCompanyName;
+  }
+
+  onSave() {
+    this.objFromCompany.CompanyName = this.reCompanyName;
     this.objFromCompany.RegistrationNumber = this.reRegistrationNumber;
     this.objFromCompany.Address = this.reAddress;
-    this.objFromCompany.Phone = this.rePhone ;
+    this.objFromCompany.Phone = this.rePhone;
     this.objFromCompany.Email = this.reEmail;
     this.objFromCompany.Founder = this.reFounder;
 
-    // this.value = false
-    this.service_edit.showValue = false;
-
-
-  }
-  ondont(){
-    this.service_edit.showValue = false;
+    // 
+    this.serviceCompanyEdit.showEditComponent = false;
+    
+    
+    alert("Changes Saved Successfully....")
+    
   }
   
   
+  ondont() {
+    
+    this.serviceCompanyEdit.showEditComponent = false;
+    alert("No Changes Found...")
+  }
+
+
 
 }

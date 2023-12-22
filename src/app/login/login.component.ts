@@ -13,39 +13,31 @@ import { AppService } from "../app.service";
 export class LoginComponent implements OnInit {
   userNameLoginPage = "";
   passwordLoginPage = "";
-  givePermissionForSignUp: boolean = true;
+
+  // givePermissionForSignUp: boolean = true;
   givePermissionForCompany = false;  
-  
-
-  @Output() signUpPermissionFromLogin = new EventEmitter<boolean>();
-  @Output() permissionToShowCompanyFromLogin = new EventEmitter<boolean>()
-  // @Output() loginStuObj = new EventEmitter<login []>()
-
-
-  //getting new signup user details from signup page
-  @Input() newUserNameAfterSignUp: string = ""
-  @Input() newUserPasswordAfterSignUp: string = ""
-
 
   
-  constructor(private loginDetailDataService: AppService) { }
+  constructor(private loginDetailDataService: AppService) {
+    
+  }
 
 
   //LoginPage UserName and Password inputs
 
-  clickedUName(Event) {
-    this.userNameLoginPage = Event.target.value;
+  clickedUName(event:any) {
+    this.userNameLoginPage = event.target.value;
     
   }
-  clickedPassword(Event) {
-    this.passwordLoginPage = Event.target.value;
+  clickedPassword(event:any) {
+    this.passwordLoginPage = event.target.value;
    
   }
 
 
   //checking for correct credentials , when clicked login button
 
-  checkEntry() {
+  loginButtonClicked() {
 
     //checking for null details and trying to login
 
@@ -57,7 +49,7 @@ export class LoginComponent implements OnInit {
     else {
 
       //checking if new user after signup trying to login
-      if (this.newUserNameAfterSignUp !== '' && this.newUserPasswordAfterSignUp !== '' && this.userNameLoginPage === this.newUserNameAfterSignUp && this.passwordLoginPage === this.newUserPasswordAfterSignUp) {
+      if (this.loginDetailDataService.newUserNameAfterSignUp !== '' && this.loginDetailDataService.newUserPasswordAfterSignUp !== '' && this.userNameLoginPage === this.loginDetailDataService.newUserNameAfterSignUp && this.passwordLoginPage === this.loginDetailDataService.newUserPasswordAfterSignUp) {
         
         this.givePermissionForCompany = true;
       }
@@ -80,8 +72,11 @@ export class LoginComponent implements OnInit {
     //after checking all credentials , if all success , the user can login
     if (this.givePermissionForCompany ) {
 
+      this.loginDetailDataService.userLogined = this.userNameLoginPage
       //login successful and company details shown
-      this.permissionToShowCompanyFromLogin.emit(true)
+      // this.permissionToShowCompanyFromLogin.emit(true)
+      this.loginDetailDataService.showCompanyPage = true;
+      this.loginDetailDataService.showLoginPage = false;
     }
 
     //atlast if it didnt pass any case i.e , there is no user
@@ -97,15 +92,24 @@ export class LoginComponent implements OnInit {
 
   //if user dont have account , directly pressing signup button , 
 
-  signUp() {
+  signUpButtonClicked() {
 
     //permission for signUp is true
 
-    this.signUpPermissionFromLogin.emit(this.givePermissionForSignUp)
+    // this.signUpPermissionFromLogin.emit(this.givePermissionForSignUp)
 
+    this.loginDetailDataService.showSignUpPage = true
+    this.loginDetailDataService.showLoginPage = false
+
+     
+     
     // this.loginStuObj.emit(this.loginDetailDataService.predefinedLoginDetails)
   }
 
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+   
+    // console.log(this.loginDetailDataService.userAccessFromLogin)
+  }
 }

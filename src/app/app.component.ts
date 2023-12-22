@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { login } from './login.interface';
 import { AppService } from './app.service';
 
@@ -8,55 +8,49 @@ import { AppService } from './app.service';
   styleUrls: ['./app.component.css'],
   providers:[AppService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  new_user:string = "";
-  new_user_password = "";
+  showLoginOrNot : boolean = false;
+  showSignUpOrNot : boolean  = false;
+  showCompanyOrNot : boolean = false;
 
-  loginDetails : login[];
+  constructor( private appcompService : AppService){
+    
+  }
+
+  ngOnInit(): void {
+    this.showLoginOrNot = this.appcompService.showLoginPage;
+    this.showSignUpOrNot = this.appcompService.showSignUpPage;
+    this.showCompanyOrNot = this.appcompService.showCompanyPage;
+
+    // If these properties in the service are supposed to be updated dynamically,
+    // you might need to use observables in the service.
+    // Example:
+    // this.appcompService.showLoginPage.subscribe(value => this.showLoginOrNot = value);
+  }
+
   
-  signUpOrNot :boolean  = false;
-  showCompanyOrNot :boolean = false;
-  showLOginPage :boolean = true;
+  
 
-  submitted(value){
-    // console.log(value)
-  }
+  // receivedDataFromLogin(signUpDetails:boolean){
+  //   this.signUpOrNot = signUpDetails;
+  //   this.showLOginPageOrNot = !signUpDetails
+  //   // console.log(this.signUpOrNot)
+  // }
 
-  objReceive(loginData:login[]){
+  // ReceivedDataFromSignUp(value : boolean){
+  //   this.signUpOrNot=value;
+  //   this.showLOginPageOrNot = !value
+  //   // console.log(this.signUpOrNot)
+  // }
 
-    this.loginDetails = loginData;
-    // console.log(loginData)
-
-  }
-
-  receivedDataFromLogin(signUpDetails:boolean){
-    this.signUpOrNot = signUpDetails;
-    this.showLOginPage = !signUpDetails
-    // console.log(this.signUpOrNot)
-  }
-
-  ReceivedDataFromSignUp(value : boolean){
-    this.signUpOrNot=value;
-    this.showLOginPage = !value
-    // console.log(this.signUpOrNot)
-  }
-
-  receivedDataFromLoginToSHowCompany(data : boolean){
-    this.showCompanyOrNot = data;
-    this.showLOginPage = !data;
-    this.signUpOrNot = !data;
+  // receivedDataFromLoginToSHowCompany(data : boolean){
+  //   this.showCompanyOrNot = data;
+  //   this.showLOginPageOrNot = !data;
+  //   this.signUpOrNot = !data;
     
 
-  }
+  // }
 
-  ReceivedNewUserName(uname : string){
-      this.new_user = uname;
-      // console.log(this.new_user)
-  }
-  ReceivedNewUserPassword(upass : string){
-      this.new_user_password = upass;
-      // console.log(this.new_user_password)
-
-  }
+  
 }

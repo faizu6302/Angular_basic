@@ -1,5 +1,5 @@
-<app-login (signUpPermissionFromLogin)="receivedDataFromLogin($event)" (permissionToShowCompanyFromLogin)="receivedDataFromLoginToSHowCompany($event)" *ngIf="showLOginPage" [newUserNameAfterSignUp]="new_user" [newUserPasswordAfterSignUp]="new_user_password"></app-login>
-<app-sign-up *ngIf="signUpOrNot" (SignUpDone)="ReceivedDataFromSignUp($event)" (SignUpDone1)="ReceivedNewUserName($event)" (SignUpDone2)="ReceivedNewUserPassword($event)"></app-sign-up>
+<app-login *ngIf="appcompService.showLoginPage" ></app-login>
+<app-sign-up *ngIf="appcompService.showSignUpPage" ></app-sign-up>
 
-<app-company *ngIf="showCompanyOrNot" ></app-company> 
+<app-company *ngIf="appcompService.showCompanyPage" ></app-company> 
 

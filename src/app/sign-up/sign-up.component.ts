@@ -11,72 +11,81 @@ import { AppService } from '../app.service';
 })
 export class SignUpComponent implements OnInit {
 
-  UName: string = ""
-  PWord: string = ""
-  RPWord: string = ""
-  permission :string = ""
+  //`gettings details from signup page form using ngModel
 
-  userRepeated = false;
+  userNameSignUpPage: string = ""
+  PasswordSignUpPage: string = ""
+  reEnterPasswordSignUPPage: string = ""
+  UserAccessSignUpPage :string = ""
+
+  //variable to check did user repeated ?
+  checkUserRepeated = false;
+
+  //accessing the predefined details of login page from AppService
   chechUsersToLogin: login[]
 
-  @Input() chechUsersToLogin1: login[]
-
-  @Output() SignUpDone = new EventEmitter<boolean>();
-  @Output() SignUpDone1 = new EventEmitter<string>();
-  @Output() SignUpDone2 = new EventEmitter<string>();
-
-  constructor(private appService: AppService) {
-
-    this.chechUsersToLogin = appService.predefinedLoginDetails
-    
   
 
 
+  // creating a instance of service - AppService
+
+  constructor(private signUpPageService: AppService) 
+  {
+    this.chechUsersToLogin = signUpPageService.predefinedLoginDetails
+    
   }
 
   newRegistration() {
-    
 
-    for (let item of this.chechUsersToLogin) {
-      if (item.uName == this.UName) {
-        this.userRepeated = true;
+    for (let item of this.signUpPageService.predefinedLoginDetails) {
+      if (item.uName === this.userNameSignUpPage) {
+        this.checkUserRepeated = true;
         break
       }
     }
 
     
 
-    if (this.userRepeated === false) {
+    
 
-      if (this.UName === '' || this.PWord === '' || this.RPWord === '') {
+    if (this.checkUserRepeated === false) {
+
+      if (this.userNameSignUpPage === '' || this.PasswordSignUpPage === '' || this.reEnterPasswordSignUPPage === '' || this.UserAccessSignUpPage ==='') {
         alert("Details are mandatory")
-          this.UName = ''
-          this.PWord = ''
-          this.RPWord = ''
+          this.userNameSignUpPage = ''
+          this.PasswordSignUpPage = ''
+          this.reEnterPasswordSignUPPage = ''
       }
-      else if (this.PWord === this.RPWord) {
+      else if (this.PasswordSignUpPage === this.reEnterPasswordSignUPPage) {
 
 
-        this.SignUpDone.emit(false)
-        this.SignUpDone1.emit(this.UName)
-        this.SignUpDone2.emit(this.PWord)
+        
+        this.signUpPageService.showSignUpPage = false;
+        this.signUpPageService.showLoginPage = true;
+
+        
+        this.signUpPageService.newUserNameAfterSignUp = this.userNameSignUpPage
+        
+        this.signUpPageService.newUserPasswordAfterSignUp = this.PasswordSignUpPage
+        
+        this.signUpPageService.newUserAccessAfterSignUp = this.UserAccessSignUpPage
       }
       else {
         alert("password mismatch")
-        this.UName = ''
-          this.PWord = ''
-          this.RPWord = ''
+        this.userNameSignUpPage = ''
+          this.PasswordSignUpPage = ''
+          this.reEnterPasswordSignUPPage = ''
       }
     }
     else {
       alert("you are already our user")
-      this.UName = ''
-          this.PWord = ''
-          this.RPWord = ''
+      this.userNameSignUpPage = ''
+          this.PasswordSignUpPage = ''
+          this.reEnterPasswordSignUPPage = ''
     }
   }
   ngOnInit() {
-    this.appService.givePermission = this.permission;
+    // this.signUpPageService.givePermission = this.UserAccessSignUpPage;
     
     
   }

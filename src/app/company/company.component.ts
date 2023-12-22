@@ -3,6 +3,7 @@ import { AppService } from "../app.service";
 import { CompanyDetails } from "../company.interface";
 
 
+
 @Component({
   selector: "app-company",
   templateUrl: "./company.component.html",
@@ -10,30 +11,29 @@ import { CompanyDetails } from "../company.interface";
 })
 export class CompanyComponent implements OnInit {
 
-companyInfo : CompanyDetails[];
-onlyTableShow : boolean = true;
+  //details of company of type company details interface
+  companyInfo: CompanyDetails[] = [];
 
-dataToBeChange : object;
+  userPermissionType : string = ""
 
-permissionToShow : string; 
-  
 
-  constructor( private service2 : AppService) {
+  objToEditCompany = {};
+  showEditComponent = false;
 
-    this.companyInfo = this.service2.companyDetail
+  constructor(private serviceInCompany: AppService) { 
+    this.userPermissionType = this.serviceInCompany.getAccessType();
     
-   
   }
 
-  onClickEditButton(obj : any){
-    // this.onlyTableShow = false;
-    this.service2.showValue = true;
-    this.dataToBeChange = obj;
+  onClickEditButton(obj: any) {
    
+    this.serviceInCompany.showEditComponent = true;
+    this.serviceInCompany.objToEditCompany = obj;
+    
   }
 
 
   ngOnInit() {
-    this.permissionToShow = this.service2.givePermission;
+      this.companyInfo = this.serviceInCompany.companyDetail
   }
 }

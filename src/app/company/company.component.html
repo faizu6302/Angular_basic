@@ -4,7 +4,7 @@
 
     <thead>
       <tr>
-        <th class="text-dark" scope="col" *appPermission="permissionToShow">Action</th>
+        <th class="text-dark" scope="col"  >Action</th>
         <th class="text-dark" scope="col">CompanyName</th>
         <th class="text-dark" scope="col">RegistrationNumber</th>
         <th class="text-dark" scope="col">Address</th>
@@ -14,9 +14,9 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of companyInfo ,let i = index"
+      <tr *ngFor="let item of companyInfo "
         [ngStyle]="{'background-color':item.RegistrationNumber % 2 === 0 ? 'palegoldenrod' : 'cornsilk' }">
-        <td *appPermission="permissionToShow"><button style="background-color: 	lightgreen;" (click)="onClickEditButton(item)">Edit</button></td>
+        <td ><button style="background-color: 	lightgreen;" (click)="onClickEditButton(item)" *appPermission="userPermissionType">Edit</button></td>
         <td>{{ item.CompanyName }} </td>
         <td>{{ item.RegistrationNumber }}</td>
         <td>{{ item.Address }}</td>
@@ -29,4 +29,4 @@
   </table>
 </div>
 
-<app-company-edit *ngIf="service2.showValue" [objFromCompany]="dataToBeChange"></app-company-edit>
+<app-company-edit *ngIf="serviceInCompany.showEditComponent" ></app-company-edit>
