@@ -1,3 +1,13 @@
+
+<label for="companyType" class="label">Select CompanyType:</label>
+<select id="companyType" name="companyType" [(ngModel)]="companyType" class="dropdown">
+  <option value="Tech">Tech</option>
+  <option value="pharma">Pharma</option>
+  <option value="clothing">Clothing</option>
+  <!-- Add more options as needed -->
+</select>
+   
+
 <div  class="top-div">
 
   <table class="table-content">
@@ -9,19 +19,19 @@
         <th class="text-dark" scope="col">RegistrationNumber</th>
         <th class="text-dark" scope="col">Address</th>
         <th class="text-dark" scope="col">Phone</th>
-        <th class="text-dark" scope="col">Founder</th>
+        <th class="text-dark" scope="col">Type</th>
       </tr>
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of companyInfo "
+      <tr *ngFor="let item of companyInfo | filterPipe : companyType "
         [ngStyle]="{'background-color':item.RegistrationNumber % 2 === 0 ? 'palegoldenrod' : 'cornsilk' }">
         <td ><button style="background-color: 	lightgreen;" (click)="onClickEditButton(item)" *appPermission="userPermissionType">Edit</button></td>
-        <td>{{ item.CompanyName }} </td>
+        <td>{{ item.CompanyName | titleCase }} </td>
         <td>{{ item.RegistrationNumber }}</td>
         <td>{{ item.Address }}</td>
-        <td>{{ item.Phone }}</td>
-        <td>{{ item.Founder }}</td>
+        <td>{{ item.Phone }} </td>
+        <td>{{ item.Type }}</td>
       </tr>
 
 

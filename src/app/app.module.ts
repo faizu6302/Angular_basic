@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { PermissionDirective } from './permission.directive';
+import { TitleCasePipe } from './title-case.pipe';
+import { FilterTablePipe } from './filter-table.pipe';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { PermissionDirective } from './permission.directive';
     SignUpComponent,
     CompanyEditComponent,
     PermissionDirective,
+    TitleCasePipe,
+    FilterTablePipe,
     
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from "../app.service";
-import { CompanyDetails } from "../company.interface";
+import { CompanyDetails } from "../company";
 
 
 
@@ -15,6 +15,10 @@ export class CompanyComponent implements OnInit {
   companyInfo: CompanyDetails[] = [];
 
   userPermissionType : string = ""
+
+  companyType : string = '';
+
+  
 
 
   objToEditCompany = {};

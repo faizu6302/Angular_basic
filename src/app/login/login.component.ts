@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
-import { login } from "../login.interface";
+import { login } from "../login";
 import { AppService } from "../app.service";
 
 @Component({

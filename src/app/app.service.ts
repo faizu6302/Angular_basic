@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { login } from "./login.interface";
-import { CompanyDetails } from "./company.interface";
+import { login } from "./login";
+import { CompanyDetails } from "./company";
 // import { CompanyEditService } from "./company-edit.service";
 
 @Injectable({
@@ -30,91 +30,23 @@ export class AppService {
 
   objToEditCompany = {};
 
-  predefinedLoginDetails: login[] = [
-    {
-      uName: "faizan",
-      password: "faizu123",
-      type: "superAdmin"
-    },
-    {
-      uName: "amod",
-      password: "amod123",
-      type: "admin"
-    },
-    {
-      uName: "prateek",
-      password: "pratek123",
-      type: "superAdmin"
+  predefinedLoginDetails: login[] = 
+  [
+    new login("faizan","faizu123","superAdmin"),
+    new login("amod","amod123","admin"),
+    new login("prateek","pratek123","superAdmin"),
+    new login("kruteek","kruteek123","admin"),
+    new login("shoaib","shoaib123","admin")
 
-    },
-    {
-      uName: "kruteek",
-      password: "kruteek123",
-      type: "admin"
-    },
-    {
-      uName: "shoaib",
-      password: "shoaib123",
-      type: "admin"
-    },
   ];
 
-  companyDetail: CompanyDetails[] = [
-    {
-      CompanyName: "ABC Electronics",
-      RegistrationNumber: 12345,
-      Address: "123 Main St, Cityville, ST, 54321",
-
-      Phone: 1234567,
-      Email: "info@abc-electronics.com",
-
-      Founder: "John Smith",
-      isActive: true
-    },
-    {
-      CompanyName: "XYZ Pharmaceuticals",
-      RegistrationNumber: 54321,
-      Address: "456 Oak Ave, Townsville, ST, 12345",
-
-      Phone: 9876543,
-      Email: "info@xyzpharma.com",
-
-      Founder: "Dr. Sarah Johnson",
-      isActive: false
-    },
-    {
-      CompanyName: "Tech Innovators Inc.",
-      RegistrationNumber: 67890,
-      Address: "789 Tech Park, Innovation City, ST, 98765",
-
-      Phone: 4567890,
-      Email: "info@techinnovators.com",
-
-      Founder: "Alex Thompson",
-      isActive: true
-    },
-    {
-      CompanyName: "Green Energy Solutions",
-      RegistrationNumber: 34567,
-      Address: "234 Renewable St, Ecotown, ST, 45678",
-
-      Phone: 2345678,
-      Email: "info@greenenergy.com",
-
-      Founder: "Emily Green",
-      isActive: false
-    },
-    {
-      CompanyName: "Fashion Trends Ltd.",
-      RegistrationNumber: 89012,
-      Address: "567 Fashion Ave, Style City, ST, 34567",
-
-      Phone: 5678901,
-      Email: "info@fashiontrends.com",
-
-      Founder: "David Fashionista",
-      isActive: true
-    },
+  companyDetail: CompanyDetails[] = 
+  [
+      new CompanyDetails("ABC Electronics",12345,"123 Main St, Cityville, ST, 54321",1234567,"info@abc-electronics.com","Tech",true),
+      new CompanyDetails("XYZ Pharmaceuticals",54321,"456 Oak Ave, Townsville, ST, 12345",9876543,"info@xyzpharma.com","pharma",false),
+      new CompanyDetails("Tech Innovators Inc.",67890,"789 Tech Park, Innovation City, ST, 98765",4567890,"info@techinnovators.com","Tech",true),
+      new CompanyDetails("Green Energy Solutions",34567,"234 Renewable St, Ecotown, ST, 45678",2345678,"info@greenenergy.com","pharma",false),
+      new CompanyDetails("Fashion Trends Ltd.",89012,"567 Fashion Ave, Style City, ST, 34567",5678901,"info@fashiontrends.com","clothing",true)
   ];
 
   getAccessType() : string {
@@ -130,6 +62,13 @@ export class AppService {
 
     }
     return this.newUser
+  }
+
+
+  createCompany(CompanyName : string,RegistrationNumber:number,Address:string,Phone:number,Email:string,Type:string,isActive:boolean){
+
+    let newCompanyEntry = new CompanyDetails(CompanyName,RegistrationNumber,Address,Phone,Email,Type,isActive)
+    this.companyDetail.push(newCompanyEntry)
   }
 
 

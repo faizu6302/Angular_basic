@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { login } from './login.interface';
+import { login } from './login';
 import { AppService } from './app.service';
 
 @Component({

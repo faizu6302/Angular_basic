@@ -9,7 +9,7 @@ export class PermissionDirective {
   constructor(private templateRef: TemplateRef<ElementRef>, private view: ViewContainerRef) { }
 
   @Input() set appPermission(permission: string){
-    console.log(permission)
+    // console.log(permission)
     if(permission === "superAdmin"){
       this.view.createEmbeddedView(this.templateRef);
     }
