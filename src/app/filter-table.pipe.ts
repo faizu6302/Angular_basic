@@ -7,17 +7,18 @@ import { CompanyDetails } from "./company";
 
 export class FilterTablePipe implements PipeTransform{
 
-    transform(companyObj: CompanyDetails[], type : string) {
+    transform(companyObj: any[], compProp : string , compName:string) {
         
-        if(type === '' || companyObj.length === 0){
+        if(compName === '' || companyObj.length === 0 || compProp === ''){
             return companyObj;
         }
         else{
 
-            return companyObj.filter((value)=>{
-                return value.Type.toLowerCase() === type.toLowerCase();
-
+            return companyObj.filter((companyObj)=>{
+               
+                   return companyObj[compProp].toLowerCase().includes(compName.toLowerCase())
             })
+            
 
         }
     }

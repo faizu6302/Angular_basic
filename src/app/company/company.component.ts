@@ -16,13 +16,17 @@ export class CompanyComponent implements OnInit {
 
   userPermissionType : string = ""
 
-  companyType : string = '';
+  compNameSearch : string = '';
 
   
 
 
   objToEditCompany = {};
   showEditComponent = false;
+
+  done(){
+    console.log(this.compNameSearch)
+  }
 
   constructor(private serviceInCompany: AppService) { 
     this.userPermissionType = this.serviceInCompany.getAccessType();

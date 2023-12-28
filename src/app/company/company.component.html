@@ -1,11 +1,7 @@
 
-<label for="companyType" class="label">Select CompanyType:</label>
-<select id="companyType" name="companyType" [(ngModel)]="companyType" class="dropdown">
-  <option value="Tech">Tech</option>
-  <option value="pharma">Pharma</option>
-  <option value="clothing">Clothing</option>
-  <!-- Add more options as needed -->
-</select>
+<label for="search">Search : </label>
+<input type="text" [(ngModel)]="compNameSearch">
+<button (click)="done()" class="btn btn-success">Search</button>
    
 
 <div  class="top-div">
@@ -24,7 +20,7 @@
     </thead>
     <tbody>
 
-      <tr *ngFor="let item of companyInfo | filterPipe : companyType "
+      <tr *ngFor="let item of companyInfo | filterPipe :'CompanyName': compNameSearch "
         [ngStyle]="{'background-color':item.RegistrationNumber % 2 === 0 ? 'palegoldenrod' : 'cornsilk' }">
         <td ><button style="background-color: 	lightgreen;" (click)="onClickEditButton(item)" *appPermission="userPermissionType">Edit</button></td>
         <td>{{ item.CompanyName | titleCase }} </td>
