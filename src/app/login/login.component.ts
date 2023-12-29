@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 import { login } from "../login";
 import { AppService } from "../app.service";
+import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -14,11 +15,13 @@ export class LoginComponent implements OnInit {
   userNameLoginPage = "";
   passwordLoginPage = "";
 
+  // user_logined_access :string =''
+
   // givePermissionForSignUp: boolean = true;
   givePermissionForCompany = false;  
 
   
-  constructor(private loginDetailDataService: AppService) {
+  constructor(private loginDetailDataService: AppService,private router:Router,private activeRoute : ActivatedRoute) {
     
   }
 
@@ -73,6 +76,22 @@ export class LoginComponent implements OnInit {
     if (this.givePermissionForCompany ) {
 
       this.loginDetailDataService.userLogined = this.userNameLoginPage
+
+      const user_logined_access = this.loginDetailDataService.newUser
+      // const url = `/company/${user_logined_access}`
+
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          myData: user_logined_access
+        }
+      };
+
+
+     
+      this.router.navigate(['/company'], navigationExtras);
+      // this.router.navigateByUrl(url);
+
+
       //login successful and company details shown
       // this.permissionToShowCompanyFromLogin.emit(true)
       this.loginDetailDataService.showCompanyPage = true;
@@ -98,8 +117,10 @@ export class LoginComponent implements OnInit {
 
     // this.signUpPermissionFromLogin.emit(this.givePermissionForSignUp)
 
-    this.loginDetailDataService.showSignUpPage = true
-    this.loginDetailDataService.showLoginPage = false
+    // this.loginDetailDataService.showSignUpPage = true
+    // this.loginDetailDataService.showLoginPage = false
+
+    this.router.navigate(['/signup'])
 
      
      

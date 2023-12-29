@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -22,7 +23,7 @@ export class CompanyEditComponent implements OnChanges,OnInit {
 
   objFromCompany: any;
 
-  constructor(private serviceCompanyEdit: AppService) {
+  constructor(private serviceCompanyEdit: AppService,private router:Router,private route :ActivatedRoute) {
 }
   
   ngOnInit(): void {
@@ -48,6 +49,8 @@ export class CompanyEditComponent implements OnChanges,OnInit {
     this.objFromCompany.Email = this.reEmail;
     this.objFromCompany.Founder = this.reFounder;
 
+    this.router.navigate(['../company'])
+
     // 
     this.serviceCompanyEdit.showEditComponent = false;
     
@@ -61,6 +64,7 @@ export class CompanyEditComponent implements OnChanges,OnInit {
     
     this.serviceCompanyEdit.showEditComponent = false;
     alert("No Changes Found...")
+    this.router.navigate(['../company-edit'])
   }
 
 

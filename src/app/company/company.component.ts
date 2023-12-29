@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from "../app.service";
 import { CompanyDetails } from "../company";
+import { ActivatedRoute, Router } from "@angular/router";
 
 
 
@@ -17,6 +18,7 @@ export class CompanyComponent implements OnInit {
   userPermissionType : string = ""
 
   compNameSearch : string = '';
+  parameter : string |null =''
 
   
 
@@ -24,24 +26,35 @@ export class CompanyComponent implements OnInit {
   objToEditCompany = {};
   showEditComponent = false;
 
-  done(){
-    console.log(this.compNameSearch)
-  }
+  
 
-  constructor(private serviceInCompany: AppService) { 
+  constructor(private serviceInCompany: AppService,private router:Router,private activeRoute :ActivatedRoute) { 
     this.userPermissionType = this.serviceInCompany.getAccessType();
+
+    const passedData = this.activeRoute.snapshot.queryParams.myData;
+    console.log('Passed Data:', passedData);
+  
     
   }
+
+
 
   onClickEditButton(obj: any) {
    
     this.serviceInCompany.showEditComponent = true;
     this.serviceInCompany.objToEditCompany = obj;
+    this.router.navigate(['company-edit'],{relativeTo:this.activeRoute})
     
+  }
+  logoutClicked(){
+    this.router.navigate(['/login'])
   }
 
 
   ngOnInit() {
       this.companyInfo = this.serviceInCompany.companyDetail
+
+     
+      
   }
 }

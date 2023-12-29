@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { login } from '../login';
 import { AppService } from '../app.service';
+import { Router } from '@angular/router';
 
 
 
@@ -29,7 +30,7 @@ export class SignUpComponent implements OnInit {
 
   // creating a instance of service - AppService
 
-  constructor(private signUpPageService: AppService) 
+  constructor(private signUpPageService: AppService,private router:Router) 
   {
     this.chechUsersToLogin = signUpPageService.predefinedLoginDetails
     
@@ -52,16 +53,17 @@ export class SignUpComponent implements OnInit {
 
       if (this.userNameSignUpPage === '' || this.PasswordSignUpPage === '' || this.reEnterPasswordSignUPPage === '' || this.UserAccessSignUpPage ==='') {
         alert("Details are mandatory")
-          this.userNameSignUpPage = ''
-          this.PasswordSignUpPage = ''
-          this.reEnterPasswordSignUPPage = ''
+          // this.userNameSignUpPage = ''
+          // this.PasswordSignUpPage = ''
+          // this.reEnterPasswordSignUPPage = ''
       }
       else if (this.PasswordSignUpPage === this.reEnterPasswordSignUPPage) {
 
 
         
-        this.signUpPageService.showSignUpPage = false;
+        this.signUpPageService.showSignUpPage = false;                                                //check this line
         this.signUpPageService.showLoginPage = true;
+        this.router.navigate(['/login'])
 
         
         this.signUpPageService.newUserNameAfterSignUp = this.userNameSignUpPage
@@ -72,16 +74,16 @@ export class SignUpComponent implements OnInit {
       }
       else {
         alert("password mismatch")
-        this.userNameSignUpPage = ''
-          this.PasswordSignUpPage = ''
-          this.reEnterPasswordSignUPPage = ''
+        // this.userNameSignUpPage = ''
+        //   this.PasswordSignUpPage = ''
+        //   this.reEnterPasswordSignUPPage = ''
       }
     }
     else {
       alert("you are already our user")
-      this.userNameSignUpPage = ''
-          this.PasswordSignUpPage = ''
-          this.reEnterPasswordSignUPPage = ''
+      // this.userNameSignUpPage = ''
+      //     this.PasswordSignUpPage = ''
+      //     this.reEnterPasswordSignUPPage = ''
     }
   }
   ngOnInit() {

@@ -11,7 +11,21 @@ import { CompanyEditComponent } from './company-edit/company-edit.component';
 import { PermissionDirective } from './permission.directive';
 import { TitleCasePipe } from './title-case.pipe';
 import { FilterTablePipe } from './filter-table.pipe';
+import { RouterModule, Routes } from '@angular/router';
 
+
+const routes : Routes=[
+
+  {path:'',component:LoginComponent},
+  {path:'login',component:LoginComponent},
+  {path:'signup',component:SignUpComponent},
+  {path:'company',component:CompanyComponent,children:[
+    {path:'company-edit',component:CompanyEditComponent},
+
+  ]},
+  
+
+]
 
 @NgModule({
   declarations: [
@@ -28,7 +42,8 @@ import { FilterTablePipe } from './filter-table.pipe';
   imports: [
     BrowserModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]

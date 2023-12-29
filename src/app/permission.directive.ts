@@ -11,6 +11,7 @@ export class PermissionDirective {
   @Input() set appPermission(permission: string){
     // console.log(permission)
     if(permission === "superAdmin"){
+      
       this.view.createEmbeddedView(this.templateRef);
     }
     
